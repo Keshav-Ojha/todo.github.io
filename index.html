@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do page</title>
+    <style>
+        body{
+            background-image: url("images/bg_alarm.jpeg");
+        }
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+          background-color: white;
+        }
+
+        p{
+            padding-left: 8px;
+        }
+
+        form{
+            padding: 5px;
+        }
+        h3{
+            padding-left:5px;
+        }
+
+        div.relative{
+            background-color: grey;
+            position:fixed;
+            bottom: 10px;
+            right:10px;
+            width:30%;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        </style>
+</head>
+<body>
+    <h1>To-Do List:</h1>
+    <table id='To-Do' style="width: 40%;"></table>
+    <div class='relative'>
+       <p> <h3>Add a new task</h3></p>
+       <form action="">
+           <label for="$name">Name</label>
+            <input type="text" id="$name"></p>
+            <label for="$description">Description</label>
+            <input type="text" id="$description"></p>
+            <label for="$date">Date</label>
+            <input type="text" id="$date"></p><br>
+            <label for="$time">Time</label>
+            <input type="text" id="$time"></p><br>
+        </form>
+        
+       <p> <button class='button' value="submit" onclick="check();">Submit</button></p>
+
+    </div>
+    
+    <script>
+        var task={name:"", desc:"", date:"", time:""};
+        var arr_task=[];
+        var txt;
+        createtable();
+        function createtable(){
+            txt = "<tr> <th>Task</th><th>Description</th> <th>Date</th><th>Time</th><th>Completed</th></tr>";
+            arr_task.forEach(createtabledata);
+            console.log(txt)
+            document.getElementById('To-Do').innerHTML=txt;
+        }// end of createtable()
+        
+        function createtabledata(value){
+            txt += '<tr><td>'+ value.name+'</td><td>'+value.desc+'</td><td>'+value.date+'</td><td>'+value.time+'</td><td>'+'<input type="checkbox"></input></td></tr>';
+        }// end of createtabledata()
+
+        var Name; var Description; var date;var Time;
+
+        function check(){
+            Name= document.getElementById("$name").value;
+            Description= document.getElementById("$description").value;
+            date= document.getElementById("$date").value;
+            Time= document.getElementById("$time").value;
+            var msg="Name: "+Name+"\nDescription: "+Description+"\nDate: "+date+"\nTime: "+Time;
+            if(confirm(msg+"\nAre you sure you want to submit?"))
+            {
+                 submitform();
+                 alert("Succesfully submited!");
+            }
+        }//end of check
+
+        function submitform(){
+            var newtask={name:Name, desc: Description, date: date, time:Time};
+            arr_task.push(newtask);
+            createtable();
+            document.getElementById("$name").value="";
+            document.getElementById("$description").value="";
+            document.getElementById("$date").value="";
+            document.getElementById("$time").value="";
+
+        }//end of submitform()
+
+    </script>
+</body>
+</html>
